@@ -1,0 +1,1 @@
+include ':app', ':jaina_annotation', ':jaina_api', ':jaina_compiler'
