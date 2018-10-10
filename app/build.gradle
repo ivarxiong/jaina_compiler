@@ -19,6 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -29,7 +30,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    compile project(':jaina_api')
-    annotationProcessor project(':jaina_compiler')
+    //compile 'com.github.jaina:jaina_annotation:1.0.0'
+    //compile project(':jaina_api')
+    compile 'com.github.jaina:jaina_api:1.0.2'
+    annotationProcessor 'com.github.jaina:jaina_compiler:1.0.1'
 
 }

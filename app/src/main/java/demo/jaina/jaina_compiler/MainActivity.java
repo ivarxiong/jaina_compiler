@@ -2,6 +2,7 @@ package demo.jaina.jaina_compiler;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import jaina.annotation.Layout;
 import jaina.api.BindView;

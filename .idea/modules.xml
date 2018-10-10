@@ -4,9 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Jaina_compiler.iml" filepath="$PROJECT_DIR$/Jaina_compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jaina_annotation/jaina_annotation.iml" filepath="$PROJECT_DIR$/jaina_annotation/jaina_annotation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jaina_api/jaina_api.iml" filepath="$PROJECT_DIR$/jaina_api/jaina_api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jaina_compiler/jaina_compiler.iml" filepath="$PROJECT_DIR$/jaina_compiler/jaina_compiler.iml" />
     </modules>
   </component>
 </project>

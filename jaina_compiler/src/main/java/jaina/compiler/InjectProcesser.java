@@ -93,10 +93,8 @@ public class InjectProcesser extends AbstractProcessor {
     private void processViews(RoundEnvironment roundEnv) {
 
         for (final Element element : roundEnv.getElementsAnnotatedWith(Layout.class)) {
-            System.out.println("  Layout ============================  ");
             // 只处理作用在类上的注解
             if (element.getKind() == ElementKind.CLASS) {
-                System.out.println("  class name ============================  " + element.getSimpleName());
                 final ArrayList<ViewElement> viewElements = handle(element);
                 if(viewElements == null || viewElements.isEmpty()) return;
                 final JCTree tree = (JCTree) trees.getTree(element);
@@ -108,7 +106,6 @@ public class InjectProcesser extends AbstractProcessor {
                         if(classSimpleName == null || elementSimpleName == null) return;
                         boolean isClass = (classSimpleName.equals(elementSimpleName));
                         if(isClass) {
-                            System.out.println(" ===== JCClassDecl is same  ====  ");
                             jcClassDecl.mods = (JCTree.JCModifiers) this.translate((JCTree) jcClassDecl.mods);
                             jcClassDecl.typarams = this.translateTypeParams(jcClassDecl.typarams);
                             jcClassDecl.extending = (JCTree.JCExpression) this.translate((JCTree) jcClassDecl.extending);
@@ -142,7 +139,7 @@ public class InjectProcesser extends AbstractProcessor {
                     }
                 });
                 Symbol.ClassSymbol classSymbol = (Symbol.ClassSymbol) element;
-                LayoutClass layoutClass = new LayoutClass(classSymbol, mElementUtils, classSymbol.getAnnotation(Layout.class).packageName(), viewElements);
+                LayoutClass layoutClass = new LayoutClass(classSymbol, getClassName(classSymbol), mElementUtils, classSymbol.getAnnotation(Layout.class).packageName(), viewElements);
                 try {
                     layoutClass.generateFile().writeTo(mFiler);
                 } catch (Exception e) {
@@ -151,6 +148,18 @@ public class InjectProcesser extends AbstractProcessor {
             }
         }
 
+    }
+
+    public String getClassName(Symbol.ClassSymbol classSymbol) {
+        String packgeName = mElementUtils.getPackageOf(classSymbol).getQualifiedName().toString();
+        String classQualifiedName = classSymbol.getQualifiedName().toString();
+        String classNameFullName = classQualifiedName.substring(packgeName.length() + 1, classQualifiedName.length());
+        if(classNameFullName.contains(".")) {
+            String names[] = classNameFullName.split("\\.");
+            return names[0] + "$" + names[1];
+        }else {
+            return classNameFullName;
+        }
     }
 
     public ArrayList<ViewElement> handle(Element element) {

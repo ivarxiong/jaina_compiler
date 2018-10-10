@@ -21,12 +21,14 @@ public class LayoutClass {
     private Symbol.ClassSymbol mClassSymbol;
     private ArrayList<ViewElement> viewElements;
     private Elements mElements;
+    private String className;
 
-    public LayoutClass(Symbol.ClassSymbol classSymbol, Elements elements,String name,  ArrayList<ViewElement> viewElements) {
+    public LayoutClass(Symbol.ClassSymbol classSymbol, String className, Elements elements,String name,  ArrayList<ViewElement> viewElements) {
         mClassSymbol = classSymbol;
         mElements = elements;
         this.viewElements = viewElements;
         packageName = name;
+        this.className = className;
     }
 
     public JavaFile generateFile() {
@@ -44,7 +46,7 @@ public class LayoutClass {
                     ("".endsWith(packageName) ? "" : (packageName + ".")) + "R.id." + viewElement.getId());
         }
 
-        TypeSpec injectClass = TypeSpec.classBuilder(mClassSymbol.getSimpleName() + "$$ViewInject")
+        TypeSpec injectClass = TypeSpec.classBuilder(className + "$$ViewInject")
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(ParameterizedTypeName.get(TypeUtil.Bind, TypeName.get(mClassSymbol.asType())))
                 .addMethod(injectMethod.build())

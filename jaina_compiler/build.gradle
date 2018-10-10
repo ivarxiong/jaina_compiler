@@ -1,11 +1,28 @@
-apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'com.novoda.bintray-release'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':jaina_annotation')
+    compile 'com.github.jaina:jaina_annotation:1.0.1'
     compile 'com.squareup:javapoet:1.7.0'
     compile 'com.google.auto.service:auto-service:1.0-rc2'
 }
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+buildscript {
+    repositories {
+        maven {
+            url 'https://dl.bintray.com/ivarxiong/maven/'
+        }
+    }
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+publish {
+    userOrg = 'ivarxiong'      //bintray注册的用户名
+    groupId = 'com.github.jaina'         //compile引用时的第1部分groupId
+    artifactId = 'jaina_compiler'     //compile引用时的第2部分项目名
+    publishVersion = '1.0.1'    //compile引用时的第3部分版本号
+    desc = 'This is a jainals extend library'
+}

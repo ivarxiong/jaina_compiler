@@ -1,1 +1,4 @@
-include ':app', ':jaina_annotation', ':jaina_api', ':jaina_compiler'
+include ':app'
+//include ':jaina_annotation'
+//include ':jaina_api'
+//include ':jaina_compiler'
